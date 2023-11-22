@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    h1 {
+    text-align: center;  
+    font-family: sans-serif;
+    font-size: 40px;
+    }
+    
+    button{
+        border:0s;
+        background-image: linear-gradient(
+            150deg,
+            #9500,
+            #09F,
+            #00DDFF);
+        border-radius: 8px;
+        color:#fff;
+        display: block;
+        font-size: 20px;
+        padding: 4px;
+        cursor:pointer;
+        transition: 3s;
+        margin-top: 3%;
+    }
+    .cursiv{
+        font-family: monospace,helvetica,lato;
+        font-size: x-large;
+    }
+
+    .gradient {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(334deg, #6b97f7, #7525e2, #f7137e);
+    background-size: 180% 180%;
+    animation: gradient-animation 6s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+    </style>
+    <title>Operaciones entre Conjuntos</title>
+</head>
+<body>
+    <div class="gradient">
+
+    <h1>Operaciones entre Conjuntos</h1>
+
+    <label for="conjuntoA">Conjunto A:</label>
+    <input type="text" id="conjuntoA" placeholder="Ej: 1, 2, 3">
+
+    <label for="conjuntoB">Conjunto B:</label>
+    <input type="text" id="conjuntoB" placeholder="Ej: 1, 2, 3">
+
+    <label for="conjuntoC">Conjunto Universo:</label>
+    <input type="text" id="conjuntoC" placeholder="Ej: 1, 2, 3">
+
+    <button onclick="realizarOperaciones()">Realizar Operaciones</button>
+
+    <h3>Resultados:</h3>
+
+    <div class="cursiv">
+    <p id="unionResultado"></p>
+    <p id="interseccionResultado"></p>
+    <p id="diferenciaResultado"></p>
+    </div>
+
+    <script>
+        function realizarOperaciones() {
+            const conjuntoA = new Set(document.getElementById('conjuntoA').value.split(',').map(item => item.trim()));
+            const conjuntoB = new Set(document.getElementById('conjuntoB').value.split(',').map(item => item.trim()));
+            const conjuntoC = new Set(document.getElementById('conjuntoC').value.split(',').map(item => item.trim()));
+
+            // Unión
+            const union = new Set([...conjuntoA, ...conjuntoB, ...conjuntoC]);
+            document.getElementById('unionResultado').textContent = `Unión: {${Array.from(union).join(', ')}}`;
+
+            // Intersección
+            const interseccion = new Set([...conjuntoA].filter(x => conjuntoB.has(x) && conjuntoC.has(x)));
+            document.getElementById('interseccionResultado').textContent = `Intersección: {${Array.from(interseccion).join(', ')}}`;
+
+            // Diferencia
+            const diferencia = new Set([...conjuntoA].filter(x => !conjuntoB.has(x) && !conjuntoC.has(x)));
+            document.getElementById('diferenciaResultado').textContent = `Diferencia: {${Array.from(diferencia).join(', ')}}`;
+        }
+    </script>
+    </div>
+
+</body>
+</html>
